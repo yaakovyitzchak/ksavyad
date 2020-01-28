@@ -1,6 +1,6 @@
 ﻿var coby = require("./COBY.js");
 var os = require("os");
-//console.log(coby)
+//console.log(coby)jjj
 coby.adanServer({
 	port:771,
 	server: require("http").createServer(function(q,r) {
