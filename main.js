@@ -100,7 +100,7 @@ coby.adanServer({
 		console.log("WELCOME!");
 	},
 	database: {
-		url:"mongodb://localhost:27017",
+		url:"mongodb+srv://cobykauf:ksavyad770@cluster0-7rlpg.mongodb.net/test?retryWrites=true&w=majority",
 		databaseCommand: "coybia",
 		validateAdmin: "adminate",
 		userDB: "userInfo",
@@ -110,9 +110,9 @@ coby.adanServer({
 		},
 		onfinish(con,err) {
 			if(err) {
-				console.log(err);
+				console.log("BIG ERROR",err);
 			} else {
-				console.log("connecte!");
+				console.log("connecte!",con);
 			
 			}
 		}

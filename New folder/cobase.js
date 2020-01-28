@@ -70,7 +70,7 @@ var mongo,
 	curIndex = 0;
 this.premadeFunctions = {
 	"database command": (data) => {
-		console.log("LOL",data);
+			
 		var superAdmin = t(data.superAdmin, Object) ? data.superAdmin : {
 			username:"admin",
 			password:"superAdmin123"
@@ -318,7 +318,7 @@ this.command = (inputOpts) => {
 			var database = t(opts.database,String) ? opts.database : null,
 			
 			
-			activeDB =  connection && database && t(connection.db, Function)? 
+			activeDB =  connection && database ? 
 							connection.db(database)
 						:
 							null,
@@ -599,7 +599,7 @@ this.Database = function(opts, cb) {
 							}
 						});
 						if(t(d.onfinish, Function)) {
-							d.onfinish(con, er);
+							d.onfinish("HELLO!?!",er,con);
 						}
 						var dbs = t(d.databaseCommand, String) ? d.databaseCommand : "databaseCommand";
 						this.command = {
@@ -686,7 +686,7 @@ function adminCommand(msg, cb) {
 		dbName =    t(opts["database"], String) ? opts.database : null,
 		callbackName = opts.callback || "admin result",
 		dc = opts.connection || self.defaultConnection();
-	if(dc != null && t(dc.db, Function)) {
+	if(dc != null) {
 		
 		var db = dc.db(dbName),
 			admin = db.admin(),
