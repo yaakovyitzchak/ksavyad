@@ -34,13 +34,20 @@ coby.adanServer({
 								}
 							))));
 						} else {
-							r.end("none");
+							r.end("nsssssone!!!");
 						}
 					}
 				}
 			})
 		} else {
-			r.end("POSTED!");
+			var s = "";
+			q.on("data", d=> {
+				s += d.toString();
+			});
+			q.on("end", () => {
+				r.end("PST: " + s);
+			});
+			
 		}
 	}),
 	adanFunctions: {
