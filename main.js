@@ -1,19 +1,47 @@
 ﻿var coby = require("./COBY.js");
 var os = require("os");
 //console.log(coby)
+var pictures = [],
+	names = [],
+	yolo=0;
 coby.adanServer({
 	port:771,
 	server: require("http").createServer(function(q,r) {
-		coby.readFile("./pictures" + q.url, (er, data) => {
-	//		console.log(q.headers.host + q.url);
-			if(!er) {
-				
-				r.end(data);
-			} else {
-				console.log(er);
-				r.end("<b> Hello </b>");
-			}
-		})
+		/*console.log(names,pictures,JSON.stringify(pictures.map(x=> (
+						{
+							id: x.id
+							
+						}
+					))));*/
+					console.log(q.url.replace("/", ""), q.method);
+		if(q.method != "POST") {
+			coby.readFile("./pictures" + q.url, (er, data) => {
+		//		console.log(q.headers.host + q.url);
+				if(!er) {
+					
+					r.end(data);
+				} else {
+					console.log("hi", yolo);
+					var p = pictures.find(x => x.id == q.url.replace("/", ""))
+					if(p) {
+						r.end(p.data);
+					} else {
+						if(pictures.length > 1) {
+							r.end(JSON.stringify(pictures.map(x=> (
+								{
+									id: x.id
+									
+								}
+							))));
+						} else {
+							r.end("none");
+						}
+					}
+				}
+			})
+		} else {
+			r.end("POSTED!");
+		}
 	}),
 	adanFunctions: {
 		hi(there, cs) {
@@ -82,7 +110,7 @@ coby.adanServer({
 		var type = cs.uploadInfo.files[0].type.replace("image/", "")
 		var fileID  = "file_" + Date.now() + "." + type
 		
-		coby.writeFile("pictures/" + fileID, m, () => {			
+		/*coby.writeFile("pictures/" + fileID, m, () => {			
 			if(cs.uploadInfo) {
 				cs.uploadInfo.files[0].fileID = fileID
 				if(cs.uploadInfo.uploadCallback) {
@@ -94,7 +122,23 @@ coby.adanServer({
 					})
 				}
 			}
+		});*/
+		pictures.push({
+			id:fileID,
+			data:m
 		});
+		yolo = Date.now() + "LOL";
+		if(cs.uploadInfo) {
+			cs.uploadInfo.files[0].fileID = fileID
+			if(cs.uploadInfo.uploadCallback) {
+				
+				cs.send({
+					[cs.uploadInfo.uploadCallback]: {
+						"got slice": cs.uploadInfo
+					}
+				})
+			}
+		}
 	},
 	onOpen(c) {
 		console.log("WELCOME!");
