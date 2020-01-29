@@ -7,13 +7,14 @@ var pictures = [],
 coby.adanServer({
 	port:771,
 	server: require("http").createServer(function(q,r) {
+		r.setHeader("Access-Control-Allow-Origin","*");
 		/*console.log(names,pictures,JSON.stringify(pictures.map(x=> (
 						{
 							id: x.id
 							
 						}
 					))));*/
-					console.log(q.url.replace("/", ""), q.method);
+				//	console.log(q.url.replace("/", ""), q.method);
 		if(q.method != "POST") {
 			coby.readFile("./pictures" + q.url, (er, data) => {
 		//		console.log(q.headers.host + q.url);
@@ -21,12 +22,12 @@ coby.adanServer({
 					
 					r.end(data);
 				} else {
-					console.log("hi", yolo);
+			//		console.log("hi", yolo);
 					var p = pictures.find(x => x.id == q.url.replace("/", ""))
 					if(p) {
 						r.end(p.data);
 					} else {
-						if(pictures.length > 1) {
+						if(pictures.length > 0) {
 							r.end(JSON.stringify(pictures.map(x=> (
 								{
 									id: x.id
@@ -34,7 +35,7 @@ coby.adanServer({
 								}
 							))));
 						} else {
-							r.end("nsssssone!!!");
+							r.end("nsssssone!!!"+Date.now());
 						}
 					}
 				}
