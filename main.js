@@ -22,7 +22,7 @@ coby.adanServer({
 		var url = q.
 					url.
 					split("/")
-					.filter(x=> x !== "");
+					.filter(x=> x !== "" && !x.includes("http"));
 		
 		
 		r.setHeader("Access-Control-Allow-Origin","*");
