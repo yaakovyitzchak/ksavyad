@@ -1,6 +1,6 @@
 ﻿var coby = require("./COBY.js")//,
 	//gm = require("gm");
-var os = require("os"),
+var os = require("os"),/////////
 	Canvas = require("canvas");
 /*	can = Canvas.createCanvas(200,200),
 	ctx = can.getContext("2d");
