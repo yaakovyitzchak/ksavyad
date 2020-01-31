@@ -1,7 +1,7 @@
 ﻿var coby = require("./COBY.js")//,
 	//gm = require("gm");
 var os = require("os"),
-	Canvas = require("canvas");
+	
 /*	can = Canvas.createCanvas(200,200),
 	ctx = can.getContext("2d");
 	
@@ -12,7 +12,7 @@ var os = require("os"),
 	var U = can.toDataURL(),
 		b = can.toBuffer();*/
 //console.log(coby)
-var pictures = [],
+	pictures = [],
 	names = [],
 	yolo=0;
 	var gm = ()=>{}
@@ -152,7 +152,7 @@ coby.adanServer({
 					})
 				}
 			}
-		});*/
+		});
 		var img = new Canvas.Image();
 		
 		img.onload = function() {
@@ -165,6 +165,11 @@ coby.adanServer({
 			ctx.drawImage(img, 0, 0, width, height);
 			
 			var buff = can.toBuffer();
+			
+		}
+		img.src = m;
+		*/
+		coby.gudalify(m, 248, buff => {
 			pictures.push({
 				id:fileID,
 				data:m,
@@ -182,8 +187,7 @@ coby.adanServer({
 					})
 				}
 			}
-		}
-		img.src = m;
+		})
 		
 	},
 	onOpen(c) {

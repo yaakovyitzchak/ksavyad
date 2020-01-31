@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^2.6.1",
     "coby-node": "^1.0.52",
     "mongodb": "^3.3.5",
+    "pngjs": "^3.4.0",
     "ws": "^7.2.0"
   },
   "description": ""
